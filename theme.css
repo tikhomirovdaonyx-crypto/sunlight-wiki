@@ -329,7 +329,7 @@ a { color: inherit; }
 .pill:hover { background: var(--red); color: #fff; border-color: var(--red); }
 
 /* сетка-мозаика: плитки встык, единая высота, разная ширина */
-.mosaic { display: flex; flex-wrap: wrap; gap: 4px; margin: 28px 0 64px; }
+.mosaic { display: flex; flex-wrap: wrap; gap: 2px; margin: 28px 0 64px; }
 .m-tile {
   position: relative; display: block; overflow: hidden; text-decoration: none;
   height: 440px; flex: 1 1 400px; background: #111; color: #fff;
@@ -338,6 +338,18 @@ a { color: inherit; }
 .m-wide   { flex-basis: 520px; }
 .m-narrow { flex-basis: 260px; }
 .m-std    { flex-basis: 380px; }
+/* фирменная плитка — как лаймовая у FLACON, но красная SUNLIGHT */
+.m-brand { flex-basis: 380px; background: var(--red); color: #fff; }
+.m-brand::after { display: none; }
+.m-brand-inner { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 22px; gap: 16px; }
+.m-brand-img {
+  width: 100%; flex: 1 1 auto; min-height: 0; object-fit: cover;
+  transition: transform .5s ease;
+}
+.m-brand:hover .m-brand-img { transform: scale(1.04); }
+.m-brand-body { display: flex; flex-direction: column; gap: 8px; }
+.m-brand .m-tags { opacity: .95; }
+.m-brand .m-title { text-shadow: none; }
 .m-img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   transition: transform .5s ease;
