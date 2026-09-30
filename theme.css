@@ -1,8 +1,22 @@
 /* Sunlight Wiki — тема прототипа.
    Структура — редакционный стиль ЗЯ/FLACON (грот, строчные заголовки, острые углы,
-   крупные фото, воздух). Цвета и правила — брендбук SUNLIGHT:
+   крупные фото, воздух). Цвета, шрифт и правила — брендбук SUNLIGHT (V_10.05.2026):
    основные Sunlight Red #FF0000 + White, дополнительные Dark Grey #646464 и Grey #D2D2D2.
-   SUNLIGHT пишем латиницей, прописными, без кавычек. */
+   Фирменный шрифт — Mazzard; до получения файлов используется близкий геометрический
+   гротеск Montserrat (самохостинг, с кириллицей). SUNLIGHT — латиницей, прописными, без кавычек. */
+
+/* Геометрический гротеск, самохостинг (без внешних CDN). Заменить на Mazzard, когда
+   будут файлы: добавить сюда @font-face Mazzard и он встанет первым в --sans. */
+@font-face {
+  font-family: "Montserrat"; font-style: normal; font-weight: 300 900; font-display: swap;
+  src: url("assets/fonts/mont-cyrillic.woff2") format("woff2");
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Montserrat"; font-style: normal; font-weight: 300 900; font-display: swap;
+  src: url("assets/fonts/mont-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
 
 :root {
   --paper: #ffffff;                /* Sunlight White (RAL 9003) */
@@ -17,8 +31,9 @@
   --accent: var(--red);
   --pop: #fbe3e3;                  /* мягкая красная подложка для выделений */
 
-  /* Грот вместо лицензионного Graphik: системные гротески того же характера */
-  --sans: "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, system-ui, sans-serif;
+  /* Фирменный шрифт SUNLIGHT — Mazzard (первым, когда появятся файлы),
+     до тех пор — самохостинг Montserrat, затем системный запас. */
+  --sans: "Mazzard", "Montserrat", "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, system-ui, sans-serif;
 
   --fs-body: 18px;
   --fs-small: 15px;
