@@ -1,17 +1,21 @@
 /* Sunlight Wiki — тема прототипа.
-   Референс визуала: goldapple.ru/flacon (FLACON mag) — редакционный чёрно-белый стиль,
-   грот Graphik, строчные заголовки, острые углы, крупные фото встык, много воздуха.
-   Снято с референса 30.09: шрифт GraphikLCG, заголовки lowercase/700, border-radius 0. */
+   Структура — редакционный стиль ЗЯ/FLACON (грот, строчные заголовки, острые углы,
+   крупные фото, воздух). Цвета и правила — брендбук SUNLIGHT:
+   основные Sunlight Red #FF0000 + White, дополнительные Dark Grey #646464 и Grey #D2D2D2.
+   SUNLIGHT пишем латиницей, прописными, без кавычек. */
 
 :root {
-  --paper: #ffffff;
-  --ink: #000000;          /* чистый чёрный — как в FLACON */
+  --paper: #ffffff;                /* Sunlight White (RAL 9003) */
+  --ink: #1a1a1a;                  /* основной текст */
   --ink-2: #111111;
-  --muted: #6b6b6b;        /* 5.1 на белом — читаемо */
-  --line: #e6e6e6;
-  --line-2: #cfcfcf;
-  --accent: #000000;       /* акцент монохромный: подчёркивание/ховер чёрным */
-  --pop: #d8ff3e;          /* редкий лаймовый акцент из палитры ЗЯ — точечно */
+  --muted: #646464;                /* Dark Grey — вторичный текст, 5.9 на белом */
+  --line: #d2d2d2;                 /* Grey — рамки и линии */
+  --line-2: #bdbdbd;
+  --red: #ff0000;                  /* Sunlight Red (RAL 3020): логотип, рамки секций, крупные акценты */
+  --red-ink: #cc0000;              /* читаемый красный для ссылок и мелкого текста, 5.9 на белом */
+  --red-dark: #cc0000;
+  --accent: var(--red);
+  --pop: #fbe3e3;                  /* мягкая красная подложка для выделений */
 
   /* Грот вместо лицензионного Graphik: системные гротески того же характера */
   --sans: "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, system-ui, sans-serif;
@@ -62,21 +66,22 @@ a { color: inherit; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 24px; min-height: 68px;
 }
-.brand { display: inline-flex; align-items: baseline; gap: 8px; text-decoration: none; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand-mark {
-  font-weight: 800; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-weight: 800; font-size: 20px; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--red); color: #fff; padding: 6px 10px; line-height: 1;  /* фирменный блок SUNLIGHT: белое на красном */
 }
 .brand-sub {
-  font-weight: 400; font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase;
+  font-weight: 700; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--muted);
 }
-.site-nav ul { display: flex; gap: 28px; flex-wrap: wrap; }
+.site-nav ul { display: flex; gap: 26px; flex-wrap: wrap; }
 .site-nav a {
-  text-decoration: none; font-size: var(--fs-micro); letter-spacing: 0.14em;
+  text-decoration: none; font-size: var(--fs-micro); letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--ink); padding: 6px 0;
   border-bottom: 2px solid transparent;
 }
-.site-nav a:hover { border-bottom-color: var(--ink); }
+.site-nav a:hover { border-bottom-color: var(--red); color: var(--red-ink); }
 
 /* ---------- хлебные крошки ---------- */
 .crumbs {
@@ -87,7 +92,7 @@ a { color: inherit; }
 .crumbs li::after { content: "/"; margin-left: 8px; color: var(--line-2); }
 .crumbs li:last-child::after { content: ""; }
 .crumbs a { color: var(--muted); text-decoration: none; }
-.crumbs a:hover { color: var(--ink); }
+.crumbs a:hover { color: var(--red-ink); }
 
 /* ---------- главная: заголовок страницы ---------- */
 .hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); margin-bottom: 48px; }
@@ -109,8 +114,21 @@ a { color: inherit; }
 .section > h2 {
   font-size: var(--fs-micro); letter-spacing: 0.16em; text-transform: uppercase;
   font-weight: 700; color: var(--ink); margin: 0 0 24px; padding-bottom: 10px;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 2px solid var(--red);
 }
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  margin: 0 0 24px; padding-bottom: 10px; border-bottom: 2px solid var(--red);
+}
+.section-head h2 {
+  font-size: var(--fs-micro); letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 700; margin: 0; border: 0; padding: 0;
+}
+.section-more {
+  font-size: var(--fs-micro); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; white-space: nowrap;
+}
+.section-more:hover { color: var(--red-ink); }
 
 /* ---------- чипы разделов (как темы-«таблетки» в FLACON) ---------- */
 .chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0 0 8px; list-style: none; }
@@ -120,8 +138,8 @@ a { color: inherit; }
   border: 1px solid var(--ink); color: var(--ink); background: var(--paper);
   transition: background .15s, color .15s;
 }
-.chip:hover { background: var(--ink); color: var(--paper); }
-.chip-solid { background: var(--ink); color: var(--paper); }
+.chip:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.chip-solid { background: var(--red); color: #fff; border-color: var(--red); }
 .chip-n { opacity: .55; margin-left: 4px; }
 
 /* ---------- ведущая карточка ---------- */
@@ -133,7 +151,7 @@ a { color: inherit; }
   font-weight: 800; text-transform: lowercase; margin: 4px 0 14px;
 }
 .feature-title a { text-decoration: none; }
-.feature-title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.feature-title a:hover { color: var(--red-ink); text-decoration: underline; text-underline-offset: 4px; }
 .feature-text { font-size: 19px; color: var(--ink-2); margin: 0 0 14px; max-width: 46ch; }
 @media (min-width: 860px) {
   .feature { grid-template-columns: 1.25fr 1fr; gap: var(--gap-lg); align-items: center; }
@@ -154,16 +172,16 @@ a { color: inherit; }
 .card-body { display: flex; flex-direction: column; }
 .kicker {
   font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.14em;
-  color: var(--muted); margin: 0 0 8px;
+  color: var(--red-ink); margin: 0 0 8px;
 }
 .kicker a { color: inherit; text-decoration: none; }
-.kicker a:hover { color: var(--ink); }
+.kicker a:hover { color: var(--red-ink); }
 .card-title {
   font-size: 21px; line-height: 1.2; font-weight: 700; text-transform: lowercase;
   margin: 0 0 8px; letter-spacing: -0.01em;
 }
 .card-title a { text-decoration: none; }
-.card-title a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.card-title a:hover { color: var(--red-ink); text-decoration: underline; text-underline-offset: 3px; }
 .card-text { font-size: var(--fs-small); color: var(--muted); margin: 0 0 8px; max-width: 46ch; }
 .card-meta {
   margin: auto 0 0; padding-top: 4px; font-size: var(--fs-micro);
@@ -197,14 +215,14 @@ a { color: inherit; }
 }
 .prose h3 { font-size: 22px; font-weight: 700; margin: 32px 0 10px; }
 .prose p { margin: 0 0 20px; }
-.prose a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px;
+.prose a { color: var(--red-ink); text-decoration: underline; text-underline-offset: 3px;
   text-decoration-thickness: 1px; }
 .prose a:hover { background: var(--pop); text-decoration: none; }
 .prose img { margin: 24px 0; width: 100%; }
 .prose ul, .prose ol { margin: 0 0 20px; padding-left: 22px; }
 .prose li { margin: 0 0 8px; }
 .prose blockquote {
-  margin: 28px 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--ink);
+  margin: 28px 0; padding: 4px 0 4px 24px; border-left: 4px solid var(--red);
   font-size: 22px; line-height: 1.4; font-style: normal;
 }
 .prose table { border-collapse: collapse; width: 100%; margin: 24px 0; font-size: var(--fs-small); }
@@ -219,39 +237,39 @@ a { color: inherit; }
 @media (min-width: 1000px) { .sidebar { position: sticky; top: 24px; } }
 .side-title {
   font-size: var(--fs-micro); letter-spacing: 0.16em; text-transform: uppercase;
-  font-weight: 700; margin: 0 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--ink);
+  font-weight: 700; margin: 0 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--red);
 }
 .side-list { display: flex; flex-direction: column; gap: 20px; }
 .side-list li { }
 .side-list a { text-decoration: none; font-weight: 600; text-transform: lowercase;
   line-height: 1.25; display: block; }
-.side-list a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.side-list a:hover { color: var(--red-ink); text-decoration: underline; text-underline-offset: 3px; }
 .side-cta { margin-top: 24px; }
 
 /* ---------- низ статьи: соседние ---------- */
-.post-foot { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--ink); }
+.post-foot { margin-top: 56px; padding-top: 28px; border-top: 2px solid var(--red); }
 .post-nav { display: grid; gap: 16px; }
 @media (min-width: 700px) { .post-nav { grid-template-columns: 1fr 1fr; } }
 .post-nav-item { text-decoration: none; display: block; padding: 20px; border: 1px solid var(--line); }
-.post-nav-item:hover { border-color: var(--ink); }
+.post-nav-item:hover { border-color: var(--red); }
 .post-nav-title { font-weight: 700; text-transform: lowercase; margin: 6px 0 0; }
 .backlink { text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em;
-  font-size: var(--fs-micro); border-bottom: 2px solid var(--ink); }
+  font-size: var(--fs-micro); color: var(--red-ink); border-bottom: 2px solid var(--red); }
 
 /* ---------- подвал ---------- */
-.site-footer { background: var(--ink); color: var(--paper); margin-top: 96px; padding: 56px 0 32px; }
+.site-footer { background: var(--red); color: #fff; margin-top: 96px; padding: 56px 0 32px; }
 .footer-inner { display: grid; grid-template-columns: 1fr; gap: 40px; }
 @media (min-width: 700px) { .footer-inner { grid-template-columns: 2fr 1fr; } }
 .footer-brand { font-weight: 800; font-size: 20px; letter-spacing: 0.1em;
   text-transform: uppercase; margin: 0 0 12px; }
-.site-footer .muted { color: #b6b6b6; }
+.site-footer .muted { color: #ffd6d6; }
 .footer-h { font-size: var(--fs-micro); letter-spacing: 0.16em; text-transform: uppercase;
   margin: 0 0 16px; }
 .footer-list { display: flex; flex-direction: column; gap: 10px; }
-.footer-list a { color: #e6e6e6; text-decoration: none; text-transform: lowercase; }
-.footer-list a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-.legal { margin-top: 40px; padding-top: 20px; border-top: 1px solid #2a2a2a; }
-.legal .muted { color: #8a8a8a; }
+.footer-list a { color: #fff; text-decoration: none; text-transform: lowercase; }
+.footer-list a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; opacity: .85; }
+.legal { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.3); }
+.legal .muted { color: #ffcccc; }
 
 .muted { color: var(--muted); }
 .small { font-size: var(--fs-small); }
