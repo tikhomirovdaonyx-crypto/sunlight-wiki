@@ -166,16 +166,20 @@ a { color: inherit; }
   }
   .mobile-logo { flex: none; display: block; }
   .mobile-search {
-    flex: 1 1 auto; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px;
+    flex: 1 1 auto; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px;
     background: #f3f3f3; border-radius: 999px; color: var(--muted);
   }
   .mobile-search svg { flex: none; }
   .mobile-search input {
-    flex: 1 1 auto; border: 0; background: transparent; font: inherit; font-size: 15px; color: var(--ink);
+    flex: 1 1 auto; border: 0; background: transparent; font: inherit; font-size: 16px; color: var(--ink);
     min-width: 0;
   }
   .mobile-search input:focus { outline: none; }
-  .mobile-menu-btn { flex: none; border: 0; background: transparent; color: var(--ink); padding: 6px; cursor: pointer; }
+  .mobile-logo img { width: 40px; height: 40px; }
+  .mobile-menu-btn {
+    flex: none; border: 0; background: transparent; color: var(--ink); cursor: pointer;
+    width: 44px; height: 44px; display: grid; place-items: center;   /* тап-таргет ≥44px */
+  }
 
   .mobile-nav { display: block; position: sticky; top: 56px; z-index: 49; background: var(--paper);
     border-bottom: 1px solid var(--line); }
@@ -191,8 +195,9 @@ a { color: inherit; }
     background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
   }
   .bottom-nav a {
-    position: relative; flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 3px;
-    padding: 8px 2px 7px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 600;
+    position: relative; flex: 1 1 0; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 3px; min-height: 52px; padding: 7px 2px;   /* тап-таргет ≥48px */
+    text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 600;
   }
   .bottom-nav a.is-active { color: var(--red); }
   .bottom-nav .has-badge::after {
@@ -406,7 +411,8 @@ a { color: inherit; }
 .m-tile:hover .m-img { transform: scale(1.04); }
 .m-tile::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,.05) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,.78) 100%);
+  /* усиленное затемнение снизу — заголовок читается и на светлых/бежевых обложках */
+  background: linear-gradient(180deg, rgba(0,0,0,.02) 0%, rgba(0,0,0,0) 32%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.9) 100%);
 }
 .m-overlay {
   position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 22px 22px 24px;
