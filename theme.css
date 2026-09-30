@@ -75,41 +75,61 @@ a { color: inherit; }
 
 .plain { list-style: none; margin: 0; padding: 0; }
 
-/* ---------- шапка (стандартная шапка сайта) ---------- */
+/* ---------- стандартная шапка sunlight.net ---------- */
 .site-header { background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; }
-.header-top {
-  display: flex; align-items: center; gap: 24px; min-height: 72px; padding-top: 12px; padding-bottom: 12px;
+
+/* утилити-строка */
+.utility-bar { background: var(--paper); border-bottom: 1px solid var(--line); font-size: var(--fs-micro); }
+.utility-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 40px; }
+.utility-left { display: flex; align-items: center; gap: 20px; }
+.util-city { display: inline-flex; align-items: center; gap: 5px; color: var(--ink); font-weight: 600; }
+.util-city svg { color: var(--red); }
+.util-phone { color: var(--ink); text-decoration: none; font-weight: 600; }
+.util-phone:hover { color: var(--red-ink); }
+.utility-right { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; }
+.utility-right::-webkit-scrollbar { display: none; }
+.utility-right a { color: var(--muted); text-decoration: none; white-space: nowrap; }
+.utility-right a:hover { color: var(--red-ink); }
+
+/* основная строка: лого, каталог, поиск, кабинет */
+.header-main { display: flex; align-items: center; gap: 20px; min-height: 84px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; flex: none; }
+.brand-icon { display: block; }
+.brand-word {
+  font-weight: 800; font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red);
 }
-.brand { display: inline-flex; flex-direction: column; gap: 4px; text-decoration: none; flex: none; }
-.brand-mark {
-  font-weight: 800; font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase;
-  background: var(--red); color: #fff; padding: 5px 9px; line-height: 1; align-self: flex-start;
+.catalog-btn {
+  flex: none; display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 22px;
+  background: var(--ink); color: #fff; text-decoration: none; font-weight: 700; font-size: var(--fs-small);
 }
-.brand-sub {
-  font-weight: 700; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
-}
-/* поиск */
-.header-search { flex: 1 1 auto; display: flex; align-items: center; max-width: 640px; margin: 0 auto; }
+.catalog-btn:hover { background: #000; }
+.header-search { flex: 1 1 auto; display: flex; align-items: center; }
 .header-search input {
-  flex: 1 1 auto; height: 44px; border: 1px solid var(--line-2); border-right: 0;
-  padding: 0 16px; font: inherit; font-size: var(--fs-small); color: var(--ink); background: var(--paper);
+  flex: 1 1 auto; height: 52px; border: 1.5px solid var(--ink); border-right: 0;
+  padding: 0 18px; font: inherit; font-size: var(--fs-small); color: var(--ink); background: var(--paper);
 }
 .header-search input::placeholder { color: var(--muted); }
-.header-search input:focus { outline: none; border-color: var(--red); }
+.header-search input:focus { outline: none; }
 .header-search button {
-  height: 44px; width: 48px; border: 1px solid var(--line-2); background: var(--paper);
+  height: 52px; width: 56px; border: 1.5px solid var(--ink); background: var(--paper);
   color: var(--ink); cursor: pointer; display: grid; place-items: center;
 }
-.header-search:focus-within button { border-color: var(--red); color: var(--red); }
 .header-search button:hover { background: var(--red); color: #fff; border-color: var(--red); }
-/* переход на основной сайт */
-.header-cta { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; flex: none; color: var(--ink); }
-.header-cta img { display: block; }
-.header-cta span {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  line-height: 1.2; color: var(--red-ink);
+/* кабинет */
+.header-account { display: flex; align-items: center; gap: 22px; flex: none; }
+.header-account a {
+  position: relative; display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+  text-decoration: none; color: var(--ink); font-size: 11px; font-weight: 600;
 }
-/* полоса разделов */
+.header-account a:hover { color: var(--red-ink); }
+.header-account .has-badge::after {
+  content: attr(data-badge); position: absolute; top: -6px; right: 2px;
+  background: var(--red); color: #fff; font-size: 10px; font-weight: 700; line-height: 1;
+  min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px;
+  display: grid; place-items: center;
+}
+
+/* полоса разделов блога */
 .site-nav { border-top: 1px solid var(--line); background: var(--paper); }
 .site-nav ul {
   display: flex; gap: 24px; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -123,10 +143,21 @@ a { color: inherit; }
   border-bottom: 2px solid transparent;
 }
 .site-nav a:hover { border-bottom-color: var(--red); color: var(--red-ink); }
+.site-nav li:first-child a { color: var(--red-ink); font-weight: 700; }
+
+/* адаптив шапки */
+@media (max-width: 900px) {
+  .header-account a span { display: none; }
+  .header-account { gap: 16px; }
+  .brand-word { font-size: 22px; }
+}
 @media (max-width: 720px) {
-  .header-top { flex-wrap: wrap; min-height: 0; gap: 12px 16px; }
-  .header-search { order: 3; flex-basis: 100%; max-width: none; margin: 0; }
-  .brand { flex: 1 1 auto; }
+  .utility-right { display: none; }
+  .header-main { flex-wrap: wrap; min-height: 0; gap: 12px 16px; padding-top: 12px; padding-bottom: 12px; }
+  .catalog-btn { order: 2; height: 48px; }
+  .header-search { order: 3; flex-basis: 100%; }
+  .header-search input, .header-search button { height: 48px; }
+  .header-account { order: 1; margin-left: auto; }
 }
 
 /* ---------- хлебные крошки ---------- */
