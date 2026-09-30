@@ -311,6 +311,64 @@ a { color: inherit; }
   letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
 }
 
+/* ---------- мозаика по образцу ЗЯ/FLACON ---------- */
+.masthead { padding: 40px 0 28px; }
+.masthead-word {
+  font-size: clamp(44px, 9vw, 104px); line-height: 0.92; letter-spacing: -0.03em;
+  font-weight: 800; text-transform: none; margin: 0 0 28px; color: var(--ink);
+}
+.topics { margin: 0; }
+.pills { display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; padding: 0; margin: 0; }
+.pills::-webkit-scrollbar { display: none; }
+.pill {
+  flex: none; display: inline-block; padding: 10px 18px; border: 1px solid var(--ink);
+  border-radius: 999px; font-size: var(--fs-micro); letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; color: var(--ink); white-space: nowrap; transition: background .15s, color .15s;
+}
+.pill:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* сетка-мозаика: плитки встык, единая высота, разная ширина */
+.mosaic { display: flex; flex-wrap: wrap; gap: 4px; margin: 28px 0 64px; }
+.m-tile {
+  position: relative; display: block; overflow: hidden; text-decoration: none;
+  height: 440px; flex: 1 1 400px; background: #111; color: #fff;
+}
+.m-hero   { flex-basis: 100%; height: 560px; }
+.m-wide   { flex-basis: 520px; }
+.m-narrow { flex-basis: 260px; }
+.m-std    { flex-basis: 380px; }
+.m-img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s ease;
+}
+.m-tile:hover .m-img { transform: scale(1.04); }
+.m-tile::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.05) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,.78) 100%);
+}
+.m-overlay {
+  position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 22px 22px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.m-tags { font-size: var(--fs-micro); letter-spacing: 0.04em; opacity: .92; text-transform: lowercase; }
+.m-title {
+  font-size: 22px; line-height: 1.12; font-weight: 700; letter-spacing: -0.01em;
+  text-shadow: 0 2px 20px rgba(0,0,0,.5);
+}
+.m-hero .m-title { font-size: clamp(26px, 3.4vw, 40px); max-width: 22ch; }
+.m-wide .m-title { font-size: 24px; }
+.m-narrow .m-title { font-size: 18px; }
+.m-date {
+  position: absolute; z-index: 1; top: 18px; right: -8px; transform: rotate(90deg); transform-origin: right top;
+  font-size: 11px; letter-spacing: 0.1em; opacity: .8; white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .m-tile { flex-basis: 100% !important; height: 300px; }
+  .m-hero { height: 360px; }
+  .m-date { display: none; }
+}
+
 /* ---------- статья ---------- */
 .layout { display: block; }
 .post { min-width: 0; }
