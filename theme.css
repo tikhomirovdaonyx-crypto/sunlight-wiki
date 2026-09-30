@@ -1,0 +1,267 @@
+/* Sunlight Wiki — тема прототипа.
+   Палитра и шкала сняты style_probe с miuz.ru (единственный открытый ювелирный референс).
+   Шрифты — только системные стеки, без CDN. */
+
+/* Палитра снята с референса akbrilliant.ru/blog (style_probe, 30.09).
+   Рядом с каждым цветом — измеренный контраст на белом: для текста нужно 4.5:1. */
+:root {
+  /* нейтральные из референса */
+  --paper: #ffffff;
+  --paper-2: #f4f6f7;      /* фон секций, 1.08 — только подложка */
+  --line: #d6dade;         /* рамки, 1.41 — только линии */
+  --line-2: #9aa0a6;       /* 2.64 — декор, не текст */
+  --ink: #262626;          /* 15.1 ✓ основной текст */
+  --ink-2: #2a2d30;        /* 13.9 ✓ заголовки */
+  --muted: #545a5f;        /* 6.99 ✓ подписи; светлее брать нельзя */
+
+  /* янтарь из референса */
+  --gold: #d3832b;         /* 2.98 — только рамки, чипы и акценты, не текст */
+  --gold-warm: #e09a45;    /* осветлён от --gold для градиентов и ховера */
+  --gold-soft: #f7ecdd;    /* подложка плашек, выведена от --gold */
+  --gold-ink: #9c5e18;     /* 5.21 ✓ ссылки и янтарный текст */
+  --hot: #c11433;          /* 6.15 ✓ красный акцент из референса */
+
+  --focus: #2b6cb0;
+
+  /* типографика: в референсе Futura PT — шрифтовых CDN не берём,
+     поэтому геометрический стек с системными аналогами */
+  --sans: "Futura PT", Futura, "Century Gothic", "Avenir Next", Avenir, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--sans);    /* референс без засечек — заголовки тем же стеком */
+
+  --fs-body: 18px;
+  --fs-small: 15px;
+  --fs-micro: 14px;
+  --fs-h3: 20px;
+  --fs-h2: 26px;
+  --fs-h1: 32px;
+
+  --r-sm: 4px;
+  --r-md: 20px;
+  --r-pill: 9999px;
+
+  --wrap: 1200px;
+  --measure: 68ch;
+
+  --gap: 16px;
+  --gap-lg: 32px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--gold-ink); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--ink); }
+a:focus-visible, .chip:focus-visible, .skip:focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  color: var(--ink-2);
+  line-height: 1.25;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+h1 { font-size: var(--fs-h1); letter-spacing: -0.01em; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+p { margin: 0 0 16px; }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
+.plain { list-style: none; margin: 0; padding: 0; }
+.muted { color: var(--muted); }
+.small { font-size: var(--fs-small); }
+
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--ink-2); color: #fff; padding: 10px 16px; z-index: 10;
+}
+.skip:focus { left: 8px; top: 8px; }
+
+/* ---------- шапка ---------- */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 5;
+}
+.header-inner { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; padding-bottom: 12px; }
+.brand { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
+.brand-mark { font-family: var(--sans); font-weight: 700; letter-spacing: 0.18em; font-size: 18px; color: var(--ink-2); }
+.brand-sub { font-family: var(--serif); font-size: var(--fs-small); color: var(--gold); }
+.site-nav ul { display: flex; flex-wrap: wrap; gap: 6px 16px; list-style: none; margin: 0; padding: 0; }
+.site-nav a { font-size: var(--fs-small); color: var(--ink-2); text-decoration: none; }
+.site-nav a:hover { color: var(--gold-ink); text-decoration: underline; }
+
+/* ---------- крошки ---------- */
+.crumbs { padding-top: 12px; padding-bottom: 4px; }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: 8px; font-size: var(--fs-small); color: var(--muted); }
+.crumbs li + li::before { content: "/"; margin-right: 8px; color: var(--line-2); }
+.crumbs a { color: var(--muted); }
+
+/* ---------- главная ---------- */
+main { display: block; padding: 20px 16px 48px; }
+.hero { padding: 8px 0 20px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+.hero-lead, .post-lead { font-size: 18px; color: var(--muted); max-width: var(--measure); margin: 0; }
+.page-head { padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+.section { margin: 0 0 40px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--paper-2);
+  font-size: var(--fs-small);
+  text-decoration: none;
+  color: var(--ink-2);
+}
+.chip:hover { border-color: var(--gold); background: #fff; }
+.chip-n { color: var(--muted); }
+
+/* ---------- карточки ---------- */
+.grid { display: grid; grid-template-columns: 1fr; gap: var(--gap-lg) var(--gap); }
+.card { display: flex; flex-direction: column; }
+.card-media {
+  display: block; overflow: hidden; border-radius: var(--r-md);
+  background: var(--paper-2); border: 1px solid var(--line); margin-bottom: 12px;
+}
+.card-media img { width: 100%; aspect-ratio: 8 / 5; object-fit: cover; }
+.card-body { display: flex; flex-direction: column; }
+.kicker {
+  font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--gold-ink); margin: 0 0 6px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+.kicker a:hover { text-decoration: underline; }
+.card-title { font-size: var(--fs-h3); margin: 0 0 8px; }
+.card-title a { text-decoration: none; color: var(--ink-2); }
+.card-title a:hover { color: var(--gold-ink); text-decoration: underline; }
+.card-text { font-size: var(--fs-small); color: var(--muted); margin: 0 0 8px; max-width: 60ch; }
+.card-meta { margin: 0; }
+
+/* Ведущая карточка «Читают сейчас». Шаблон рисует .feature*, а правил для них в теме не было —
+   картинка уходила в натуральную величину (1323 px). Добавлено 30.09, сверстано как .card. */
+.feature { display: grid; grid-template-columns: 1fr; gap: var(--gap); align-items: start; }
+.feature-media {
+  display: block; overflow: hidden; border-radius: var(--r-md);
+  background: var(--paper-2); border: 1px solid var(--line);
+}
+.feature-media img { display: block; width: 100%; aspect-ratio: 8 / 5; object-fit: cover; }
+.feature-body { display: flex; flex-direction: column; }
+.feature-title { font-size: var(--fs-h2); line-height: 1.2; margin: 0 0 10px; }
+.feature-title a { text-decoration: none; color: var(--ink-2); }
+.feature-title a:hover { color: var(--gold-ink); text-decoration: underline; }
+.feature-text { font-size: var(--fs-body); color: var(--muted); margin: 0 0 10px; max-width: 60ch; }
+@media (min-width: 760px) {
+  .feature { grid-template-columns: 1.15fr 1fr; gap: var(--gap-lg); }
+}
+
+/* ---------- статья ---------- */
+.layout { display: block; }
+.post { min-width: 0; }
+.post-head { margin-bottom: 20px; }
+.post-meta { margin: 12px 0 0; }
+.post-hero { margin: 0 0 24px; }
+.post-hero img {
+  width: 100%; aspect-ratio: 8 / 5; object-fit: cover;
+  border-radius: var(--r-md); border: 1px solid var(--line);
+}
+
+.prose { max-width: var(--measure); font-size: var(--fs-body); }
+.prose > * { max-width: var(--measure); }
+.prose h2 { font-size: var(--fs-h2); margin: 32px 0 12px; }
+.prose h3 { font-size: var(--fs-h3); margin: 24px 0 8px; }
+.prose ul, .prose ol { padding-left: 22px; margin: 0 0 16px; }
+.prose li { margin-bottom: 8px; }
+.prose img {
+  border-radius: var(--r-sm); border: 1px solid var(--line);
+  margin: 20px 0; height: auto;
+}
+.prose blockquote {
+  margin: 20px 0; padding: 12px 16px;
+  border-left: 3px solid var(--gold); background: var(--paper-2);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0; color: var(--ink-2);
+}
+.prose table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); margin: 0 0 20px; display: block; overflow-x: auto; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.prose th { background: var(--paper-2); }
+
+.post-gallery { margin: 40px 0 0; }
+.gallery { display: grid; grid-template-columns: 1fr; gap: var(--gap); }
+.gallery figure { margin: 0; }
+.gallery img { width: 100%; aspect-ratio: 8 / 5; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--line); }
+
+.post-foot {
+  margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
+  font-size: var(--fs-small); color: var(--muted);
+}
+.backlink { margin-top: 24px; font-size: var(--fs-small); }
+
+/* ---------- сайдбар ---------- */
+.sidebar {
+  margin-top: 48px; padding-top: 24px; border-top: 2px solid var(--line);
+}
+.sidebar h2 { font-size: var(--fs-h3); }
+.side-list li { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.side-title { font-size: 17px; margin: 0 0 4px; }
+.side-title a { text-decoration: none; color: var(--ink-2); }
+.side-title a:hover { color: var(--gold-ink); text-decoration: underline; }
+.side-list p { margin: 0; }
+.side-cta { margin-top: 16px; }
+
+/* ---------- подвал ---------- */
+.site-footer { border-top: 1px solid var(--line); background: var(--paper-2); padding: 32px 0 24px; margin-top: 48px; }
+.footer-inner { display: grid; grid-template-columns: 1fr; gap: 24px; }
+.footer-brand { font-family: var(--sans); font-weight: 700; letter-spacing: 0.18em; margin: 0 0 8px; }
+.footer-h { font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-family: var(--sans); }
+.footer-col li { margin-bottom: 8px; font-size: var(--fs-small); }
+.legal { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+/* ---------- адаптив ---------- */
+@media (min-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1.5fr 1fr; }
+}
+
+@media (min-width: 768px) {
+  :root { --fs-body: 18px; --fs-h1: 40px; --fs-h2: 28px; }
+  .header-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+  main { padding: 24px 16px 64px; }
+}
+
+@media (min-width: 1000px) {
+  :root { --fs-h1: 48px; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+  .sidebar {
+    margin-top: 0; padding-top: 0; border-top: 0;
+    position: sticky; top: 88px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+@media print {
+  .site-header, .site-nav, .sidebar, .site-footer, .crumbs { display: none; }
+  body { font-size: 12pt; }
+}
