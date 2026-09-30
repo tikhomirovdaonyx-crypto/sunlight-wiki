@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="../img/4d344886051b9a37.jpg">
 <meta name="theme-color" content="#ff0000">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../theme.css?v=cce4ae01">
+<link rel="stylesheet" href="../theme.css?v=6db767a6">
 
 <script type="application/ld+json">
 {
@@ -60,6 +60,33 @@
 </head>
 <body>
 <a class="skip" href="#main">Перейти к содержанию</a>
+
+
+<div class="mobile-bar">
+  <a class="mobile-logo" href="https://sunlight.net/" aria-label="SUNLIGHT">
+    <img src="../assets/favicon.svg" alt="SUNLIGHT" width="34" height="34">
+  </a>
+  <form class="mobile-search" role="search" action="https://sunlight.net/catalog/" method="get">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2"/></svg>
+    <input type="search" name="q" placeholder="Поиск в SUNLIGHT" aria-label="Поиск в SUNLIGHT">
+  </form>
+  <button class="mobile-menu-btn" type="button" aria-label="Меню" aria-expanded="false" onclick="var n=document.getElementById('mnav');var o=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',!o);n.hidden=o;">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+</div>
+<nav id="mnav" class="mobile-nav" aria-label="Разделы" hidden>
+  <ul class="plain">
+    <li><a href="../">Блог</a></li>
+    <li><a href="https://sunlight.net/wiki/category/novosti/">Новости</a></li>
+    <li><a href="https://sunlight.net/wiki/category/dragotsennosti/">Драгоценности</a></li>
+    <li><a href="https://sunlight.net/wiki/category/brands/">Бренды</a></li>
+    <li><a href="https://sunlight.net/wiki/category/persons/">Персоны</a></li>
+    <li><a href="https://sunlight.net/wiki/category/dictionary/">Словарь Дроновой Н.Д.</a></li>
+    <li><a href="https://sunlight.net/wiki/category/mir-sunlight/">Мир SUNLIGHT</a></li>
+    <li><a href="https://sunlight.net/wiki/o-kompanii.html">О нас</a></li>
+    <li><a href="https://sunlight.net/wiki/category/books/">Библиотека</a></li>
+  </ul>
+</nav>
 
 <header class="site-header">
   
@@ -210,6 +237,30 @@
 </div>
 
 </main>
+
+
+<nav class="bottom-nav" aria-label="Мобильная навигация">
+  <a href="../" class="is-active">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 11l8-7 8 7M6 10v9h12v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <span>Главная</span>
+  </a>
+  <a href="https://sunlight.net/catalog/">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>Каталог</span>
+  </a>
+  <a href="https://sunlight.net/shops/">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>Магазины</span>
+  </a>
+  <a href="https://sunlight.net/cart/" class="has-badge" data-badge="1">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 7h13l-1.5 10.5a2 2 0 01-2 1.5H9.5a2 2 0 01-2-1.5L6 7zm0 0L5 3H3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>Корзина</span>
+  </a>
+  <a href="https://sunlight.net/personal/">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>Профиль</span>
+  </a>
+</nav>
 
 <footer class="site-footer">
   <div class="wrap footer-inner">

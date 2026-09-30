@@ -151,13 +151,62 @@ a { color: inherit; }
   .header-account { gap: 16px; }
   .brand-word { font-size: 22px; }
 }
+
+/* ---------- мобильная шапка и таб-бар (как на sunlight.net) ---------- */
+.mobile-bar, .mobile-nav, .bottom-nav { display: none; }
+
 @media (max-width: 720px) {
-  .utility-right { display: none; }
-  .header-main { flex-wrap: wrap; min-height: 0; gap: 12px 16px; padding-top: 12px; padding-bottom: 12px; }
-  .catalog-btn { order: 2; height: 48px; }
-  .header-search { order: 3; flex-basis: 100%; }
-  .header-search input, .header-search button { height: 48px; }
-  .header-account { order: 1; margin-left: auto; }
+  /* прячем десктопную шапку целиком */
+  .site-header { display: none; }
+
+  /* компактная строка: лого + поиск + меню */
+  .mobile-bar {
+    display: flex; align-items: center; gap: 10px; padding: 8px 14px;
+    position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 1px solid var(--line);
+  }
+  .mobile-logo { flex: none; display: block; }
+  .mobile-search {
+    flex: 1 1 auto; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px;
+    background: #f3f3f3; border-radius: 999px; color: var(--muted);
+  }
+  .mobile-search svg { flex: none; }
+  .mobile-search input {
+    flex: 1 1 auto; border: 0; background: transparent; font: inherit; font-size: 15px; color: var(--ink);
+    min-width: 0;
+  }
+  .mobile-search input:focus { outline: none; }
+  .mobile-menu-btn { flex: none; border: 0; background: transparent; color: var(--ink); padding: 6px; cursor: pointer; }
+
+  .mobile-nav { display: block; position: sticky; top: 56px; z-index: 49; background: var(--paper);
+    border-bottom: 1px solid var(--line); }
+  .mobile-nav[hidden] { display: none; }
+  .mobile-nav ul { display: flex; flex-direction: column; }
+  .mobile-nav a { display: block; padding: 14px 18px; text-decoration: none; color: var(--ink);
+    border-bottom: 1px solid var(--line); font-weight: 600; }
+  .mobile-nav a:first-child { color: var(--red-ink); }
+
+  /* нижний таб-бар */
+  .bottom-nav {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+    background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
+  }
+  .bottom-nav a {
+    position: relative; flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 8px 2px 7px; text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 600;
+  }
+  .bottom-nav a.is-active { color: var(--red); }
+  .bottom-nav .has-badge::after {
+    content: attr(data-badge); position: absolute; top: 3px; left: 54%;
+    background: var(--red); color: #fff; font-size: 9px; font-weight: 700; line-height: 1;
+    min-width: 14px; height: 14px; padding: 0 3px; border-radius: 999px; display: grid; place-items: center;
+  }
+  body { padding-bottom: 64px; }   /* место под фиксированный таб-бар */
+
+  /* вордмарк не должен обрезаться */
+  .masthead { padding: 24px 0 18px; }
+  .masthead-word { font-size: clamp(26px, 7vw, 36px); line-height: 1.0; }
+  .m-title { font-size: 19px; }
+  .m-hero .m-title { font-size: 22px; }
 }
 
 /* ---------- хлебные крошки ---------- */
