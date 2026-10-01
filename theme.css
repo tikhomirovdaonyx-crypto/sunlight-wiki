@@ -877,10 +877,10 @@ body { overflow-x: clip; }
   filter: none; mix-blend-mode: normal; opacity: .9; }
 .logo-marquee .brand-card:hover img { opacity: 1; }
 @media (max-width: 900px) { .logo-marquee .brand-card img, .logo-marquee .brand-card:hover img { width: 150px; height: 60px; } .lm-group { gap: 56px; padding-right: 56px; } }
-/* логотипы ×0.5 */
-.logo-marquee .brand-card img, .logo-marquee .brand-card:hover img { width: 105px; height: 42px; }
-.lm-group { gap: 64px; padding-right: 64px; }
-@media (max-width: 900px) { .logo-marquee .brand-card img, .logo-marquee .brand-card:hover img { width: 75px; height: 30px; } .lm-group { gap: 40px; padding-right: 40px; } }
+/* логотипы бегущей строки: ×2 от макета (просьба 01.10) — 210×84, на мобильном 150×60 */
+.logo-marquee .brand-card img, .logo-marquee .brand-card:hover img { width: 210px; height: 84px; }
+.lm-group { gap: 88px; padding-right: 88px; }
+@media (max-width: 900px) { .logo-marquee .brand-card img, .logo-marquee .brand-card:hover img { width: 150px; height: 60px; } .lm-group { gap: 56px; padding-right: 56px; } }
 /* «Ювелирное дело» — витрина как у Nike: без подложки, квадратное фото, подпись под ним */
 .jd-list.scroller > a, .jd-list.scroller > a:hover { background: none; border-radius: 0; padding: 0; gap: 6px; transform: none; overflow: visible; }
 .jd-list.scroller > a img { aspect-ratio: 1 / 1; border-radius: 4px; margin-bottom: 14px; background: #ebebef; transition: opacity .2s; }
