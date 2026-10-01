@@ -33,7 +33,7 @@
 
   /* Фирменный шрифт SUNLIGHT — Mazzard (первым, когда появятся файлы),
      до тех пор — самохостинг Montserrat, затем системный запас. */
-  --sans: "Mazzard", "Montserrat", "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, system-ui, sans-serif;
+  --sans: "Mazzard M", "Mazzard", "Montserrat", "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, system-ui, sans-serif;
 
   --fs-body: 18px;
   --fs-small: 15px;
@@ -54,6 +54,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
+  font-synthesis: none;   /* у Mazzard M нет 700/800 — не рисовать фальшивый жирный */
   font-size: var(--fs-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -76,7 +77,13 @@ a { color: inherit; }
 .plain { list-style: none; margin: 0; padding: 0; }
 
 /* ---------- стандартная шапка sunlight.net ---------- */
-.site-header { background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; }
+.site-header { background: var(--paper); border-bottom: 1px solid var(--line); }
+/* на мобильном живая шапка fixed (60px) и таб-бар fixed снизу — как #wrapper на sunlight.net */
+@media (max-width: 1000px) { body { padding-top: 60px; padding-bottom: calc(50px + env(safe-area-inset-bottom)); } }
+.proto-note { font-size: var(--fs-micro); color: var(--muted); margin: 24px auto; }
+/* подвал sunlight.net без его скриптов: иконки сторов на чёрных плашках — белые, QR — статичный */
+@media (max-width: 1000px) { .footer-apps__link img { filter: invert(1); } }
+.footer-apps__qr img { width: 100%; height: 100%; display: block; }
 
 /* утилити-строка */
 .utility-bar { background: var(--paper); border-bottom: 1px solid var(--line); font-size: var(--fs-micro); }
@@ -152,61 +159,21 @@ a { color: inherit; }
   .brand-word { font-size: 22px; }
 }
 
-/* ---------- мобильная шапка и таб-бар (как на sunlight.net) ---------- */
-.mobile-bar, .mobile-nav, .bottom-nav { display: none; }
-
-@media (max-width: 720px) {
-  /* прячем десктопную шапку целиком */
-  .site-header { display: none; }
-
-  /* компактная строка: лого + поиск + меню */
-  .mobile-bar {
-    display: flex; align-items: center; gap: 10px; padding: 8px 14px;
-    position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 1px solid var(--line);
-  }
-  .mobile-logo { flex: none; display: block; }
-  .mobile-search {
-    flex: 1 1 auto; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px;
-    background: #f3f3f3; border-radius: 999px; color: var(--muted);
-  }
-  .mobile-search svg { flex: none; }
-  .mobile-search input {
-    flex: 1 1 auto; border: 0; background: transparent; font: inherit; font-size: 16px; color: var(--ink);
-    min-width: 0;
-  }
-  .mobile-search input:focus { outline: none; }
-  .mobile-logo img { width: 40px; height: 40px; }
-  .mobile-menu-btn {
-    flex: none; border: 0; background: transparent; color: var(--ink); cursor: pointer;
-    width: 44px; height: 44px; display: grid; place-items: center;   /* тап-таргет ≥44px */
-  }
-
-  .mobile-nav { display: block; position: sticky; top: 56px; z-index: 49; background: var(--paper);
-    border-bottom: 1px solid var(--line); }
+/* ---------- мобильный: живая шапка sunlight.net + наш список разделов по бургеру ---------- */
+.mobile-nav { display: none; }
+@media (max-width: 1000px) {
+  .site-nav { display: none; }                 /* полоса разделов — в выпадающем списке по бургеру */
+  .site-header { border-bottom: 0; }
+  .mobile-nav { display: block; position: fixed; left: 0; right: 0; top: 60px; z-index: 1130;
+    background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 12px 24px rgba(0,0,0,.08);
+    max-height: calc(100vh - 110px); overflow-y: auto; }
   .mobile-nav[hidden] { display: none; }
   .mobile-nav ul { display: flex; flex-direction: column; }
   .mobile-nav a { display: block; padding: 14px 18px; text-decoration: none; color: var(--ink);
-    border-bottom: 1px solid var(--line); font-weight: 600; }
-  .mobile-nav a:first-child { color: var(--red-ink); }
-
-  /* нижний таб-бар */
-  .bottom-nav {
-    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-    background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
-  }
-  .bottom-nav a {
-    position: relative; flex: 1 1 0; display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 3px; min-height: 52px; padding: 7px 2px;   /* тап-таргет ≥48px */
-    text-decoration: none; color: var(--muted); font-size: 10px; font-weight: 600;
-  }
-  .bottom-nav a.is-active { color: var(--red); }
-  .bottom-nav .has-badge::after {
-    content: attr(data-badge); position: absolute; top: 3px; left: 54%;
-    background: var(--red); color: #fff; font-size: 9px; font-weight: 700; line-height: 1;
-    min-width: 14px; height: 14px; padding: 0 3px; border-radius: 999px; display: grid; place-items: center;
-  }
-  body { padding-bottom: 64px; }   /* место под фиксированный таб-бар */
-
+    border-bottom: 1px solid var(--line); font-weight: 600; font-size: 16px; }
+  .mobile-nav li:first-child a { color: var(--red-ink); }
+}
+@media (max-width: 720px) {
   /* вордмарк не должен обрезаться */
   .masthead { padding: 24px 0 18px; }
   .masthead-word { font-size: clamp(26px, 7vw, 36px); line-height: 1.0; }
