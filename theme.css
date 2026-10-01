@@ -1074,3 +1074,8 @@ body { overflow-x: clip; }
 .backlink a, .post-foot a, .contacts a, .about-intro a { display: inline-block; padding: 10px 0; }
 .contacts p { line-height: 1.4; }
 .kicker a, .products .block-more, .block-more { display: inline-block; padding: 10px 0; }
+/* товарный блок внутри текста статьи: ссылки без подчёркивания и красного */
+.prose .pr-card, .prose .pr-card:hover { text-decoration: none; color: var(--ink); }
+.prose .pr-name { color: var(--ink-2); }
+.prose .pr-price { color: var(--ink); }
+.prose .products .block-more { color: var(--red-ink); }
