@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://tikhomirovdaonyx-crypto.github.io/sunlight-wiki/sitemap.xml
+Disallow: /
