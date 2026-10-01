@@ -508,9 +508,43 @@ a { color: inherit; }
 .brand-card:hover img { filter: none; opacity: 1; }
 .brand-card:hover span { color: var(--ink); }
 
+/* ---------- посадочные рубрик (структура живой вики: крошки → h1 → табы → карточки) ---------- */
+.land-head { padding-top: 24px; }
+.land-head h1 { margin-bottom: 10px; }
+.land-head .hero-lead { max-width: 60ch; margin: 0; }
+.land-tabs { margin: 24px 0 32px; }
+.pill.is-active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.land-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px 24px; }
+.s-card-text { font-size: var(--fs-small); color: var(--muted); line-height: 1.45; }
+.brand-grid-full .brand-card { min-height: 140px; }
+/* персоны: круглые портреты */
+.person-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 28px 20px; }
+.person { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;
+  text-decoration: none; color: var(--ink); font-size: 15px; font-weight: 600; line-height: 1.25; }
+.person img { width: 138px; height: 138px; border-radius: 50%; object-fit: cover; background: #f1f1f1;
+  transition: transform .3s ease; }
+.person:hover img { transform: scale(1.05); }
+.person:hover span { color: var(--red-ink); }
+.block-head h2 a { color: inherit; text-decoration: none; }
+.block-head h2 a:hover { color: var(--red-ink); }
+/* словарь: алфавит + колонки по буквам */
+.alphabet { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 36px; }
+.alphabet a { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px;
+  border: 1px solid var(--line); font-weight: 700; text-decoration: none; color: var(--ink); }
+.alphabet a:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.dict { columns: 3; column-gap: 40px; }
+.dict-block { break-inside: avoid; margin: 0 0 32px; padding-top: 12px; border-top: 2px solid var(--ink); }
+.dict-letter { font-size: 40px; font-weight: 800; line-height: 1; color: var(--red); margin: 0 0 12px; }
+.dict-list li { padding: 6px 0; border-bottom: 1px solid var(--line); }
+.dict-list a { text-decoration: none; color: var(--ink); display: block; }
+.dict-list a:hover { color: var(--red-ink); }
+
 @media (max-width: 1000px) {
   .tab-panel { grid-template-columns: repeat(2, 1fr); }
   .brand-grid { grid-template-columns: repeat(3, 1fr); }
+  .land-grid { grid-template-columns: repeat(2, 1fr); }
+  .person-grid { grid-template-columns: repeat(4, 1fr); }
+  .dict { columns: 2; }
 }
 @media (max-width: 720px) {
   .hs-slide { aspect-ratio: 4 / 3; }
@@ -523,6 +557,14 @@ a { color: inherit; }
   .s-card-title { font-size: 15px; }
   .brand-grid { grid-template-columns: repeat(2, 1fr); }
   .block { margin-bottom: 44px; }
+  .land-grid { grid-template-columns: 1fr 1fr; gap: 24px 12px; }
+  .s-card-text { display: none; }
+  .person-grid { grid-template-columns: repeat(3, 1fr); gap: 20px 10px; }
+  .person img { width: 96px; height: 96px; }
+  .person { font-size: 13px; }
+  .dict { columns: 1; }
+  .alphabet { gap: 4px; }
+  .alphabet a { min-width: 40px; min-height: 44px; }
 }
 
 /* ---------- статья ---------- */
