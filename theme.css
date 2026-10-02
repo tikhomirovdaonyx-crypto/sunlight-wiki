@@ -1228,3 +1228,11 @@ main button:focus-visible {
 
 /* правка после Дизайнера: у активной точки шорткат background сбрасывал background-clip — серый прямоугольник вокруг полоски */
 [data-home] .hs-dots a.is-on { background-clip: content-box; }
+
+/* полоса разделов: подчёркивание следует за текущим разделом, а не стоит на «Блог»; крошки — на одной линии */
+.site-nav li:first-child a { border-bottom-color: transparent; }
+.site-nav a.is-active { border-bottom-color: #000; }
+.mobile-nav a.is-active { color: var(--red-ink); }
+.crumbs ol { align-items: center; }
+.crumbs li { display: inline-flex; align-items: center; min-height: 44px; }
+.crumbs a { padding: 0; }
