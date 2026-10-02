@@ -1248,3 +1248,48 @@ main button:focus-visible {
 [data-home] .hs-track.is-dragging .hs-slide { pointer-events: none; }
 [data-home] .hs-slide img { -webkit-user-drag: none; user-drag: none; }
 @media (hover: hover) { [data-home] .hs-track { scroll-behavior: auto; } }
+
+/* ---------- товарный блок в формате карточки каталога sunlight.net (.cl-item): фото 1:1, сердечко, цена, название ---------- */
+.products { padding: 0; background: none; border-radius: 0; }
+.products-head { padding: 0 2px; }
+.pr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: #e9e9ec; border: 2px solid #e9e9ec; }
+.prose .pr-item, .pr-item { display: flex; flex-direction: column; background: #fff; text-decoration: none; color: #000; min-width: 0;
+  font-family: "Mazzard M", Arial, Helvetica, sans-serif; font-weight: 300; }
+.prose .pr-item:hover { color: #000; }
+.pr-img { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; background: #fff; }
+.prose .pr-img img, .pr-img img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; border-radius: 0; }
+.pr-like { position: absolute; right: 10px; bottom: 10px; width: 20px; height: 20px; display: block; }
+.pr-info { display: flex; flex-direction: column; padding: 12px 14px 12px; gap: 4px; }
+.pr-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; line-height: 22px; }
+.pr-now { font-size: 17px; font-weight: 500; letter-spacing: .2px; }
+.pr-full { font-size: 13px; font-weight: 300; }
+.pr-pct { font-size: 13px; font-weight: 400; color: var(--red); }
+.prose .pr-title, .pr-title { font-size: 15px; font-weight: 300; letter-spacing: .18px; line-height: 20px; color: #000;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pr-item:hover .pr-title { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 720px) {
+  .products { margin: 28px -24px; }                         /* как в каталоге на телефоне: карточки край-в-край */
+  .products-head { padding: 0 24px; }
+  .pr-grid { grid-template-columns: 1fr 1fr; border-left: 0; border-right: 0; }
+  .pr-info { padding: 10px 12px 12px; }
+  .pr-now { font-size: 16px; }
+}
+
+/* ---------- главная: минимум пустоты (просьба собственника 02.10): интро, чипсы, карусель, секции плотнее ---------- */
+[data-home] .intro-line { padding-top: 24px; padding-bottom: 12px; }
+[data-home] .intro-line h1 { margin-bottom: 16px; }
+[data-home] .hero-slider { margin-top: 8px; margin-bottom: 48px; }
+[data-home] .block, [data-home] .hero-slider { margin-bottom: 48px; }
+[data-home] .block-head { margin-bottom: 18px; }
+[data-home] .hs-dots { margin-top: 10px; }
+.site-nav { padding-top: 4px; }
+.site-nav a { padding: 8px 0 10px; }
+@media (max-width: 720px) { [data-home] .intro-line { padding-top: 16px; } [data-home] .block, [data-home] .hero-slider { margin-bottom: 36px; } }
+
+/* бегущая строка брендов: JS-лента, перетаскивание мышью */
+.lm-track.js { animation: none; will-change: transform; }
+.logo-marquee { cursor: grab; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
+.logo-marquee.is-dragging { cursor: grabbing; }
+.logo-marquee.is-dragging .brand-card { pointer-events: none; }
+.logo-marquee img { -webkit-user-drag: none; }
+.pr-was { display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
