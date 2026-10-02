@@ -1241,3 +1241,10 @@ main button:focus-visible {
   .land-tabs .pills, .topics .pills { flex-wrap: wrap; overflow: visible; row-gap: 10px; }
   .land-tabs::after { display: none; }
 }
+
+/* карусель главной: перетаскивание мышью */
+[data-home] .hs-track { cursor: grab; user-select: none; -webkit-user-select: none; }
+[data-home] .hs-track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+[data-home] .hs-track.is-dragging .hs-slide { pointer-events: none; }
+[data-home] .hs-slide img { -webkit-user-drag: none; user-drag: none; }
+@media (hover: hover) { [data-home] .hs-track { scroll-behavior: auto; } }

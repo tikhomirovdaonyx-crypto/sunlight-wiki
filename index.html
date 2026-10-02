@@ -21,8 +21,8 @@
 <meta name="twitter:image" content="https://tikhomirovdaonyx-crypto.github.io/sunlight-wiki/assets/og-default.svg">
 <meta name="theme-color" content="#ff0000">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="chrome.css?v=a73da5d1">
-<link rel="stylesheet" href="theme.css?v=a73da5d1">
+<link rel="stylesheet" href="chrome.css?v=b8b661e8">
+<link rel="stylesheet" href="theme.css?v=b8b661e8">
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "WebSite", "name": "Ювелирная энциклопедия SUNLIGHT", "url": "https://tikhomirovdaonyx-crypto.github.io/sunlight-wiki/",
  "publisher": {"@id": "https://sunlight.net/#organization"},
@@ -376,33 +376,50 @@
 
 
 <script>
-/* Баннер: бесконечная центрированная карусель (клоны по краям), индикатор заполняется за время показа */
+/* Баннер: бесконечная центрированная карусель (клоны по краям). Перетаскивание мышью, своя плавная
+   анимация (rAF, ease-out, 520 мс) вместо браузерного smooth, автопрокрутка 5.4 с (на 10% быстрее прежних 6 с). */
 (function(){var t=document.getElementById("hs");if(!t)return;
-var DUR=6000,real=[].slice.call(t.querySelectorAll(".hs-slide")),n=real.length,d=[].slice.call(document.querySelectorAll(".hs-dots a")),idle,start=0,raf;
+var DUR=5400,ANIM=520,real=[].slice.call(t.querySelectorAll(".hs-slide")),n=real.length,d=[].slice.call(document.querySelectorAll(".hs-dots a")),idle,start=0,raf,anim=null;
 d.forEach(function(x){x.innerHTML="<i></i>";});
 function clone(x){var c=x.cloneNode(true);c.removeAttribute("id");c.setAttribute("aria-hidden","true");c.tabIndex=-1;c.classList.add("hs-clone");return c;}
 real.slice().reverse().forEach(function(x){t.insertBefore(clone(x),t.firstChild);});
 real.forEach(function(x){t.appendChild(clone(x));});
 var sl=[].slice.call(t.querySelectorAll(".hs-slide")),i=n,busy=false;
+sl.forEach(function(x){x.querySelectorAll("img").forEach(function(im){im.draggable=false;});});
 function rmod(k){return((k%n)+n)%n;}
 function pos(k){var s=sl[k];return s.offsetLeft-(t.clientWidth-s.offsetWidth)/2;}
-function jump(k){t.style.scrollSnapType="none";t.scrollLeft=pos(k);t.offsetHeight;t.style.scrollSnapType="";}
+function snapOff(){t.style.scrollSnapType="none";}
+function snapOn(){t.style.scrollSnapType="";}
+function jump(k){snapOff();t.scrollLeft=pos(k);t.offsetHeight;snapOn();}
+function ease(x){return 1-Math.pow(1-x,3);}
+function tween(to,done){if(anim)cancelAnimationFrame(anim);var from=t.scrollLeft,dist=to-from,t0=performance.now();snapOff();
+  (function step(now){var p=Math.min(1,(now-t0)/ANIM);t.scrollLeft=from+dist*ease(p);if(p<1){anim=requestAnimationFrame(step);}else{anim=null;snapOn();if(done)done();}})(t0);}
 function mark(){var r=rmod(i);d.forEach(function(x,j){var on=j===r;if(x.classList.contains("is-on")!==on){x.classList.toggle("is-on",on);x.firstChild.style.width="0";}});
   sl.forEach(function(x,j){x.classList.toggle("is-on",j===i);});}
-function go(k,inst){i=k;busy=!inst;if(inst)jump(i);else t.scrollTo({left:pos(i),behavior:"smooth"});mark();start=performance.now();}
+function go(k,inst){i=k;busy=!inst;if(inst)jump(i);else tween(pos(i),function(){busy=false;settle();});mark();start=performance.now();}
 function nearest(){var c=t.scrollLeft+t.clientWidth/2,b=0,bd=1e9;sl.forEach(function(x,j){var dd=Math.abs(x.offsetLeft+x.offsetWidth/2-c);if(dd<bd){bd=dd;b=j;}});return b;}
-function settle(){busy=false;var k=nearest();if(k!==i){i=k;mark();start=performance.now();}
+function settle(){if(anim||drag)return;busy=false;var k=nearest();if(k!==i){i=k;mark();start=performance.now();}
   if(i<n){i+=n;jump(i);mark();}else if(i>=2*n){i-=n;jump(i);mark();}}
-t.addEventListener("scroll",function(){clearTimeout(idle);idle=setTimeout(settle,150);},{passive:true});
-t.addEventListener("pointerdown",function(){start=performance.now();});
+t.addEventListener("scroll",function(){if(anim||drag)return;clearTimeout(idle);idle=setTimeout(settle,150);},{passive:true});
 d.forEach(function(x,j){x.addEventListener("click",function(e){e.preventDefault();go(i+(j-rmod(i)));});});
-sl.forEach(function(x,j){x.addEventListener("click",function(e){if(j!==i){e.preventDefault();go(j);}});});
+/* перетаскивание мышью: тянем ленту за курсором, отпустили — доезжаем до ближайшего слайда; клик после перетаскивания не срабатывает */
+var drag=false,moved=false,sx=0,sl0=0,lastX=0,vx=0,lastT=0;
+t.addEventListener("pointerdown",function(e){if(e.pointerType!=="mouse"||e.button!==0)return;drag=true;moved=false;sx=lastX=e.clientX;sl0=t.scrollLeft;vx=0;lastT=performance.now();
+  if(anim){cancelAnimationFrame(anim);anim=null;}snapOff();t.classList.add("is-dragging");t.setPointerCapture(e.pointerId);start=performance.now();});
+t.addEventListener("pointermove",function(e){if(!drag)return;var dx=e.clientX-sx;if(Math.abs(dx)>5)moved=true;t.scrollLeft=sl0-dx;
+  var now=performance.now();vx=(e.clientX-lastX)/Math.max(1,now-lastT);lastX=e.clientX;lastT=now;});
+function endDrag(e){if(!drag)return;drag=false;t.classList.remove("is-dragging");
+  var k=nearest();if(Math.abs(vx)>0.35)k=vx<0?Math.min(sl.length-1,nearest()+1):Math.max(0,nearest()-1);   /* бросок — следующий слайд */
+  go(k);setTimeout(function(){moved=false;},50);}
+t.addEventListener("pointerup",endDrag);t.addEventListener("pointercancel",endDrag);
+t.addEventListener("click",function(e){if(moved){e.preventDefault();e.stopPropagation();}},true);
+sl.forEach(function(x,j){x.addEventListener("click",function(e){if(moved)return;if(j!==i){e.preventDefault();go(j);}});});
 var still=matchMedia("(prefers-reduced-motion: reduce)").matches,paused=false;
 t.addEventListener("mouseenter",function(){paused=true;});t.addEventListener("mouseleave",function(){paused=false;});
 function tick(now){var on=d[rmod(i)];
-  if(paused||document.hidden){start=now-(on._p||0)*DUR;}
+  if(paused||drag||document.hidden){start=now-(on._p||0)*DUR;}
   var p=still?1:Math.min(1,(now-start)/DUR);on._p=p;on.firstChild.style.width=(p*100)+"%";
-  if(!still&&p>=1&&!busy&&n>1)go(i+1);
+  if(!still&&p>=1&&!busy&&!drag&&n>1)go(i+1);
   raf=requestAnimationFrame(tick);}
 window.addEventListener("resize",function(){jump(i);});
 go(n,true);raf=requestAnimationFrame(tick);})();
