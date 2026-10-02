@@ -1236,3 +1236,8 @@ main button:focus-visible {
 .crumbs ol { align-items: center; }
 .crumbs li { display: inline-flex; align-items: center; min-height: 44px; }
 .crumbs a { padding: 0; }
+/* табы рубрик на десктопе: все видны, в несколько рядов; горизонтальный свайп — только на телефоне */
+@media (min-width: 721px) {
+  .land-tabs .pills, .topics .pills { flex-wrap: wrap; overflow: visible; row-gap: 10px; }
+  .land-tabs::after { display: none; }
+}
