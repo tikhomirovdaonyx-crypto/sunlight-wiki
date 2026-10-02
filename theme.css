@@ -1293,3 +1293,19 @@ main button:focus-visible {
 .logo-marquee.is-dragging .brand-card { pointer-events: none; }
 .logo-marquee img { -webkit-user-drag: none; }
 .pr-was { display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
+
+/* ---------- «Бренды» на главной: карточки с основного сайта (фото 320×375, описание, «Смотреть»), ряд тянется мышью ---------- */
+[data-home] .brand-row { --cols: 4; }
+[data-home] .brand-row > a.brand-item, [data-home] .brand-row > a.brand-item:hover { background: #fff; border-radius: 4px; padding: 0 0 16px; gap: 0; box-shadow: none; transform: none; }
+[data-home] .brand-item-media { display: block; aspect-ratio: 320 / 375; overflow: hidden; background: #f1f1f3; }
+[data-home] .brand-item-media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: auto; margin: 0; display: block; }
+[data-home] .brand-item-body { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px 0; }
+[data-home] .brand-item-tag { font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--red-ink); font-weight: 500; }
+[data-home] .brand-item-desc { font-size: 14px; line-height: 1.4; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+[data-home] .brand-item-link { font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; margin-top: 4px; }
+[data-home] .brand-item:hover .brand-item-link { color: var(--red-ink); }
+[data-home] .scroller { cursor: grab; user-select: none; -webkit-user-select: none; }
+[data-home] .scroller.is-dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+[data-home] .scroller.is-dragging > * { pointer-events: none; }
+[data-home] .scroller img { -webkit-user-drag: none; }
+@media (max-width: 900px) { [data-home] .brand-row { --cols: 2 !important; } }
