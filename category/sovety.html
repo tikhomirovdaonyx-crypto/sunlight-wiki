@@ -239,15 +239,15 @@
 <!-- свой счётчик визитов (наш сервер, не Яндекс): пишет путь и источник -->
 <script>
 (function(){try{
-  var u="https://trends.2-29-25-157.sslip.io/px.gif?p="+encodeURIComponent(location.pathname)
+  var u="https://wiki.2-29-25-157.sslip.io/px.gif?p="+encodeURIComponent(location.pathname)
        +"&r="+encodeURIComponent(document.referrer||"")+"&t="+Date.now();
   (new Image()).src=u;
   // цели: клик в каталог / по товару / в Telegram — тем же пикселем, путь /click/<цель>/<страница>
   document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;
     var h=a.getAttribute("href")||"",g=/sunlight\.net\/catalog\/[a-z_]+_\d+/.test(h)?"product":/sunlight\.net\/catalog/.test(h)?"catalog":/t\.me\//.test(h)?"telegram":"";
-    if(!g)return;(new Image()).src="https://trends.2-29-25-157.sslip.io/px.gif?p="+encodeURIComponent("/click/"+g+location.pathname)+"&t="+Date.now();},true);
+    if(!g)return;(new Image()).src="https://wiki.2-29-25-157.sslip.io/px.gif?p="+encodeURIComponent("/click/"+g+location.pathname)+"&t="+Date.now();},true);
 }catch(e){}})();
 </script>
-<noscript><img src="https://trends.2-29-25-157.sslip.io/px.gif?p=noscript" alt="" width="1" height="1" style="position:absolute;left:-9999px"></noscript>
+<noscript><img src="https://wiki.2-29-25-157.sslip.io/px.gif?p=noscript" alt="" width="1" height="1" style="position:absolute;left:-9999px"></noscript>
 </body>
 </html>
