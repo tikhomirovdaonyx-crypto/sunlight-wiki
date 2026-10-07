@@ -21,8 +21,8 @@
 <meta name="twitter:image" content="https://tikhomirovdaonyx-crypto.github.io/sunlight-wiki/assets/og-default.svg">
 <meta name="theme-color" content="#ff0000">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="chrome.css?v=ffa2438f">
-<link rel="stylesheet" href="theme.css?v=ffa2438f">
+<link rel="stylesheet" href="chrome.css?v=282ab80e">
+<link rel="stylesheet" href="theme.css?v=282ab80e">
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "WebSite", "name": "Ювелирная энциклопедия SUNLIGHT", "url": "https://tikhomirovdaonyx-crypto.github.io/sunlight-wiki/",
  "publisher": {"@id": "https://sunlight.net/#organization"},
@@ -142,6 +142,8 @@
       <span class="hs-caption"><span class="hs-title">Секреты производства украшений с камеями</span><span class="hs-more">Читать статью ›</span></span>
     </a>
   </div>
+  <button type="button" class="sc-btn hs-arrow hs-prev" data-dir="-1" aria-label="Предыдущий баннер"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12 4.5 6.5 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button type="button" class="sc-btn hs-arrow hs-next" data-dir="1" aria-label="Следующий баннер"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4.5 13.5 10 8 15.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <div class="hs-dots"><a href="#hs-1" aria-label="Слайд 1"></a><a href="#hs-2" aria-label="Слайд 2"></a><a href="#hs-3" aria-label="Слайд 3"></a></div>
 </section>
 
@@ -376,88 +378,42 @@
 
 
 <script>
-/* Баннер: бесконечная центрированная карусель (клоны по краям). Перетаскивание мышью, своя плавная
-   анимация (rAF, ease-out, 520 мс) вместо браузерного smooth, автопрокрутка 5.4 с (на 10% быстрее прежних 6 с). */
+/* Баннер: бесконечная центрированная карусель (клоны по краям), стрелки по data-dir, автопрокрутка 6с. */
 (function(){var t=document.getElementById("hs");if(!t)return;
-var DUR=5400,ANIM=520,real=[].slice.call(t.querySelectorAll(".hs-slide")),n=real.length,d=[].slice.call(document.querySelectorAll(".hs-dots a")),idle,start=0,raf,anim=null;
+var DUR=6000,real=[].slice.call(t.querySelectorAll(".hs-slide")),n=real.length,d=[].slice.call(document.querySelectorAll(".hs-dots a")),idle,start=0,raf;
 d.forEach(function(x){x.innerHTML="<i></i>";});
 function clone(x){var c=x.cloneNode(true);c.removeAttribute("id");c.setAttribute("aria-hidden","true");c.tabIndex=-1;c.classList.add("hs-clone");return c;}
 real.slice().reverse().forEach(function(x){t.insertBefore(clone(x),t.firstChild);});
 real.forEach(function(x){t.appendChild(clone(x));});
 var sl=[].slice.call(t.querySelectorAll(".hs-slide")),i=n,busy=false;
-sl.forEach(function(x){x.querySelectorAll("img").forEach(function(im){im.draggable=false;});});
 function rmod(k){return((k%n)+n)%n;}
 function pos(k){var s=sl[k];return s.offsetLeft-(t.clientWidth-s.offsetWidth)/2;}
-function snapOff(){t.style.scrollSnapType="none";}
-function snapOn(){t.style.scrollSnapType="";}
-function jump(k){snapOff();t.scrollLeft=pos(k);t.offsetHeight;snapOn();}
-function ease(x){return 1-Math.pow(1-x,3);}
-function tween(to,done){if(anim)cancelAnimationFrame(anim);var from=t.scrollLeft,dist=to-from,t0=performance.now();snapOff();
-  (function step(now){var p=Math.min(1,(now-t0)/ANIM);t.scrollLeft=from+dist*ease(p);if(p<1){anim=requestAnimationFrame(step);}else{anim=null;snapOn();if(done)done();}})(t0);}
+function jump(k){t.style.scrollSnapType="none";t.scrollLeft=pos(k);t.offsetHeight;t.style.scrollSnapType="";}
 function mark(){var r=rmod(i);d.forEach(function(x,j){var on=j===r;if(x.classList.contains("is-on")!==on){x.classList.toggle("is-on",on);x.firstChild.style.width="0";}});
   sl.forEach(function(x,j){x.classList.toggle("is-on",j===i);});}
-function go(k,inst){i=k;busy=!inst;if(inst)jump(i);else tween(pos(i),function(){busy=false;settle();});mark();start=performance.now();}
+function go(k,inst){i=k;busy=!inst;if(inst)jump(i);else t.scrollTo({left:pos(i),behavior:"smooth"});mark();start=performance.now();}
 function nearest(){var c=t.scrollLeft+t.clientWidth/2,b=0,bd=1e9;sl.forEach(function(x,j){var dd=Math.abs(x.offsetLeft+x.offsetWidth/2-c);if(dd<bd){bd=dd;b=j;}});return b;}
-function settle(){if(anim||drag)return;busy=false;var k=nearest();if(k!==i){i=k;mark();start=performance.now();}
+function settle(){busy=false;var k=nearest();if(k!==i){i=k;mark();start=performance.now();}
   if(i<n){i+=n;jump(i);mark();}else if(i>=2*n){i-=n;jump(i);mark();}}
-t.addEventListener("scroll",function(){if(anim||drag)return;clearTimeout(idle);idle=setTimeout(settle,150);},{passive:true});
+t.addEventListener("scroll",function(){clearTimeout(idle);idle=setTimeout(settle,150);},{passive:true});
+t.addEventListener("pointerdown",function(){start=performance.now();});
 d.forEach(function(x,j){x.addEventListener("click",function(e){e.preventDefault();go(i+(j-rmod(i)));});});
-/* перетаскивание мышью: тянем ленту за курсором, отпустили — доезжаем до ближайшего слайда; клик после перетаскивания не срабатывает */
-var drag=false,moved=false,sx=0,sl0=0,lastX=0,vx=0,lastT=0;
-t.addEventListener("pointerdown",function(e){if(e.pointerType!=="mouse"||e.button!==0)return;drag=true;moved=false;sx=lastX=e.clientX;sl0=t.scrollLeft;vx=0;lastT=performance.now();
-  if(anim){cancelAnimationFrame(anim);anim=null;}snapOff();t.classList.add("is-dragging");t.setPointerCapture(e.pointerId);start=performance.now();});
-t.addEventListener("pointermove",function(e){if(!drag)return;var dx=e.clientX-sx;if(Math.abs(dx)>5)moved=true;t.scrollLeft=sl0-dx;
-  var now=performance.now();vx=(e.clientX-lastX)/Math.max(1,now-lastT);lastX=e.clientX;lastT=now;});
-function endDrag(e){if(!drag)return;drag=false;t.classList.remove("is-dragging");
-  var k=nearest();if(Math.abs(vx)>0.35)k=vx<0?Math.min(sl.length-1,nearest()+1):Math.max(0,nearest()-1);   /* бросок — следующий слайд */
-  go(k);setTimeout(function(){moved=false;},50);}
-t.addEventListener("pointerup",endDrag);t.addEventListener("pointercancel",endDrag);
-t.addEventListener("click",function(e){if(moved){e.preventDefault();e.stopPropagation();}},true);
-sl.forEach(function(x,j){x.addEventListener("click",function(e){if(moved)return;if(j!==i){e.preventDefault();go(j);}});});
+sl.forEach(function(x,j){x.addEventListener("click",function(e){if(j!==i){e.preventDefault();go(j);}});});
 var still=matchMedia("(prefers-reduced-motion: reduce)").matches,paused=false;
 t.addEventListener("mouseenter",function(){paused=true;});t.addEventListener("mouseleave",function(){paused=false;});
 function tick(now){var on=d[rmod(i)];
-  if(paused||drag||document.hidden){start=now-(on._p||0)*DUR;}
+  if(paused||document.hidden){start=now-(on._p||0)*DUR;}
   var p=still?1:Math.min(1,(now-start)/DUR);on._p=p;on.firstChild.style.width=(p*100)+"%";
-  if(!still&&p>=1&&!busy&&!drag&&n>1)go(i+1);
+  if(!still&&p>=1&&!busy&&n>1)go(i+1);
   raf=requestAnimationFrame(tick);}
+document.querySelectorAll(".hs-arrow").forEach(function(b){b.addEventListener("click",function(){go(i+ +b.dataset.dir);});});
 window.addEventListener("resize",function(){jump(i);});
 go(n,true);raf=requestAnimationFrame(tick);})();
-/* Бренды: бегущая строка на JS вместо CSS-анимации — её можно тянуть мышью (и пальцем), после отпускания едет дальше */
-(function(){var m=document.querySelector(".logo-marquee"),tr=m&&m.querySelector(".lm-track");if(!tr)return;
-var still=matchMedia("(prefers-reduced-motion: reduce)").matches,x=0,half=0,speed=0,drag=false,moved=false,sx=0,x0=0,vx=0,lastX=0,lastT=0,paused=false,last=0;
-tr.classList.add("js");tr.querySelectorAll("img").forEach(function(im){im.draggable=false;});
-function measure(){half=tr.scrollWidth/2;speed=half/45000;}   /* как в CSS: полкруга за 45 с */
-function wrap(){if(half<=0)return;x=((x%half)+half)%half;}
-function paint(){tr.style.transform="translate3d("+(-x)+"px,0,0)";}
-function frame(now){var dt=Math.min(50,now-(last||now));last=now;
-  if(!drag){if(Math.abs(vx)>0.02){x+=vx*dt;vx*=Math.pow(0.95,dt/16);}else if(!paused&&!still){x+=speed*dt;}}
-  wrap();paint();requestAnimationFrame(frame);}
-m.addEventListener("mouseenter",function(){paused=true;});m.addEventListener("mouseleave",function(){paused=false;});
-tr.addEventListener("pointerdown",function(e){if(e.pointerType==="mouse"&&e.button!==0)return;drag=true;moved=false;sx=lastX=e.clientX;x0=x;vx=0;lastT=performance.now();
-  m.classList.add("is-dragging");tr.setPointerCapture(e.pointerId);});
-tr.addEventListener("pointermove",function(e){if(!drag)return;var dx=e.clientX-sx;if(Math.abs(dx)>5)moved=true;x=x0-dx;
-  var now=performance.now();vx=-(e.clientX-lastX)/Math.max(1,now-lastT);lastX=e.clientX;lastT=now;});
-function end(){if(!drag)return;drag=false;m.classList.remove("is-dragging");setTimeout(function(){moved=false;},50);}
-tr.addEventListener("pointerup",end);tr.addEventListener("pointercancel",end);
-tr.addEventListener("click",function(e){if(moved){e.preventDefault();e.stopPropagation();}},true);
-window.addEventListener("resize",measure);
-function ready(){measure();requestAnimationFrame(frame);}
-if(document.readyState==="complete")ready();else window.addEventListener("load",ready);})();
-/* Карусели: любой .scroller тянется мышью (на телефоне — пальцем, нативно); клик после перетаскивания гасится */
-document.querySelectorAll('[data-home] .scroller').forEach(function(sc){var drag=false,moved=false,sx=0,sl=0;
-  sc.querySelectorAll('img').forEach(function(im){im.draggable=false;});
-  sc.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;drag=true;moved=false;sx=e.clientX;sl=sc.scrollLeft;
-    sc.classList.add('is-dragging');sc.setPointerCapture(e.pointerId);});
-  sc.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-sx;if(Math.abs(dx)>5)moved=true;sc.scrollLeft=sl-dx;});
-  function end(){if(!drag)return;drag=false;sc.classList.remove('is-dragging');setTimeout(function(){moved=false;},50);}
-  sc.addEventListener('pointerup',end);sc.addEventListener('pointercancel',end);
-  sc.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();}},true);});
-/* Карусели: стрелки листают видимый .scroller блока на 80% ширины */
-document.querySelectorAll('[data-home] .block').forEach(function(b){b.querySelectorAll('.sc-btn').forEach(function(btn){btn.addEventListener('click',function(){
-  var sc=[].slice.call(b.querySelectorAll('.scroller')).filter(function(x){return x.offsetParent!==null;})[0];if(!sc)return;
-  sc.scrollBy({left:btn.dataset.dir*sc.clientWidth*0.8,behavior:'smooth'});});});});
-/* Карусели: число карточек в ряд по числу статей и ширине (2–4); стрелки прячем, если всё влезло */
+/* Скроллеры (Ювелирное дело, Камни): стрелки листают видимый .scroller на 80% ширины */
+document.querySelectorAll('[data-home] .block').forEach(b=>{b.querySelectorAll('.sc-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  const sc=[...b.querySelectorAll('.scroller')].find(x=>x.offsetParent!==null); if(!sc) return;
+  sc.scrollBy({left:btn.dataset.dir*sc.clientWidth*0.8,behavior:'smooth'});}))});
+/* Скроллеры: число колонок по ширине и числу карточек; стрелки прячем, если всё влезло */
 (function(){function fit(){document.querySelectorAll('[data-home] .block').forEach(function(b){
   var nav=b.querySelector('.sc-nav'),need=false;
   b.querySelectorAll('.scroller').forEach(function(sc){var n=sc.children.length,mx=innerWidth>=1200?4:innerWidth>=900?3:2,c=Math.max(2,Math.min(mx,n));sc.style.setProperty('--cols',c);
